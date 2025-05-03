@@ -1,0 +1,11 @@
+{
+  "name": "@totalonion/onionloader",
+  "version": "2.1.2",
+  "description": "Lazyloader utility",
+  "main": "onionloader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
