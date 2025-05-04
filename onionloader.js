@@ -77,7 +77,7 @@ const fallbackAssetArray = [
 const options = {
   rootMargin: "0% 0% 0%",
   threshold: 0,
-  debugLogMessages: true,
+  debugLogMessages: false,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
   assetArray: fallbackAssetArray,
@@ -235,7 +235,7 @@ export function loadCss(assetKey, options = { css: true }) {
   const promise = new Promise((resolve) => {
     if (options.css === true && !inCriticalCssConfig(assetKey)) {
       import(
-        /* webpackChunkName: "[request]" */ `${this.options.filePrefix}/${this.options.filePathCss}/${assetKey}.css`
+        /* webpackChunkName: "[request]" */ `${options.filePrefix}/${options.filePathCss}/${assetKey}.css`
       ).then(() => resolve(true));
     } else {
       return resolve(true);
