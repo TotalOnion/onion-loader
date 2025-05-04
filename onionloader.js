@@ -84,8 +84,9 @@ const options = {
   assetMap: {},
   ignoreCss: false,
   lazy: true,
-  filePath: "js/blocks/",
-  filePathCss: "scss/blocks/",
+  filePrefix: "Assets",
+  filePath: "js/blocks",
+  filePathCss: "scss/blocks",
 };
 
 /**
@@ -96,13 +97,12 @@ function lazyloaderInit() {
   options.lazyBlocksToSearchFor = [];
   options.assetArray.forEach((asset) => {
     options.assetMap[asset.assetKey] = {
-      js: () => import(`Assets/${this.options.filePath}${asset.assetKey}`),
+      js: () => import(`${this.options.filePrefix}/${this.options.filePath}/${asset.assetKey}`),
       css: options.ignoreCss === false,
     };
 
     // if not, add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
-
     options.lazyBlocksFound = Array.from(
       document.querySelectorAll(options.lazyBlocksToSearchFor)
     );
@@ -235,7 +235,7 @@ export function loadCss(assetKey, options = { css: true }) {
   const promise = new Promise((resolve) => {
     if (options.css === true && !inCriticalCssConfig(assetKey)) {
       import(
-        /* webpackChunkName: "[request]" */ `Assets/scss/blocks/${assetKey}.scss`
+        /* webpackChunkName: "[request]" */ `${filePrefix}/${filePathCss}/${assetKey}.css`
       ).then(() => resolve(true));
     } else {
       return resolve(true);
