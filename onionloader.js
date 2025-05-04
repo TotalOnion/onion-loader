@@ -82,7 +82,7 @@ const options = {
   lazyBlocksFound: [],
   assetArray: fallbackAssetArray,
   assetMap: {},
-  ignoreCss: false,
+  ignoreCss: true,
   lazy: true,
   filePrefix: "Assets",
   filePath: "js/blocks",
@@ -98,7 +98,7 @@ function lazyloaderInit() {
   options.assetArray.forEach((asset) => {
     options.assetMap[asset.assetKey] = {
       js: () => import(`${this.options.filePrefix}/${this.options.filePath}/${asset.assetKey}`),
-      css: options.ignoreCss === false,
+      css: options.ignoreCss === true,
     };
 
     // if not, add to lazy blocks to search for
@@ -231,7 +231,7 @@ export function inCriticalCssConfig(assetKey) {
  * @param {object} options The options object which will at the very least contain the css property set to true.
  * @returns {promise}
  */
-export function loadCss(assetKey, options = { css: true }) {
+export function loadCss(assetKey, options = { css: false }) {
   const promise = new Promise((resolve) => {
     if (options.css === true && !inCriticalCssConfig(assetKey)) {
       import(
