@@ -235,7 +235,7 @@ export function loadCss(assetKey, options = { css: true }) {
   const promise = new Promise((resolve) => {
     if (options.css === true && !inCriticalCssConfig(assetKey)) {
       import(
-        /* webpackChunkName: "[request]" */ `${this.filePrefix}/${this.filePathCss}/${assetKey}.css`
+        /* webpackChunkName: "[request]" */ `${this.options.filePrefix}/${this.options.filePathCss}/${assetKey}.css`
       ).then(() => resolve(true));
     } else {
       return resolve(true);
