@@ -6,11 +6,11 @@ The Onion Loader is a tool that uses intersection observer to dynamically load c
 
 Install Onion Loader with NPM.
 
-    npm i @pernod-ricard-global-cms/Onion Loader
+    npm i TotalOnion/Onion Loader
 
 Import the module in your js file. The module uses a default export so you can reference with whatever name you like in your file.
 
-    import lazyloader from '@pernod-ricard-global-cms/Onion Loader';
+    import lazyloader from 'TotalOnion/Onion Loader';
 
 However, we have not yet given it anything to look for. To do this we need to pass it an array of objects called each of which needs at least one key value pair of the form:
 
