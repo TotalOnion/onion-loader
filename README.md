@@ -1,4 +1,4 @@
-# Onion Loader 
+# Onion Loader
 
 The Onion Loader is a tool that uses intersection observer to dynamically load css and javascript.
 
@@ -6,7 +6,7 @@ The Onion Loader is a tool that uses intersection observer to dynamically load c
 
 Install Onion Loader with NPM.
 
-    npm i TotalOnion/Onion Loader
+    npm i total_onion/onionloader
 
 Import the module in your js file. The module uses a default export so you can reference with whatever name you like in your file.
 
@@ -21,9 +21,9 @@ For the lazyloader to find anything on the screen that it can load assets for, t
     <section class="some-element" data-assetkey="<string>">
 
 The string in the data attribute must match the string value of the object we are going to pass to the lazyloader. The assets that the lazyloader will look for will also need to have the same name as the assetkey. Eg.
-    `<string>`.js
-    or
-    `<string>`.scss>
+`<string>`.js
+or
+`<string>`.scss>
 
 Finally we can send the names to the lazyloader by updating it's options object. Eg.
 
@@ -33,7 +33,7 @@ The lazyloader will be looking for js files in a specific folder which it will r
 
     lazyloader.options.filepath = 'js/blocks/';
 
-Which will give you a combined path of: 
+Which will give you a combined path of:
 
     'Assets/js/blocks/'
 
