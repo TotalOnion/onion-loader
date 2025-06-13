@@ -22,71 +22,21 @@
  * @default 'scss/blocks/'
  */
 
-const fallbackAssetArray = [
-  { assetKey: "theme-switcher" },
-  { assetKey: "tabbed-content-v2" },
-  { assetKey: "sub-tabbed-content" },
-  { assetKey: "sub-group-container" },
-  { assetKey: "sticky-link" },
-  { assetKey: "standard-content-v2" },
-  { assetKey: "spacer-v2" },
-  { assetKey: "slide-in-panel" },
-  { assetKey: "site-title-and-tagline" },
-  { assetKey: "site-logo-container" },
-  { assetKey: "site-copyright-notice" },
-  { assetKey: "single-video" },
-  { assetKey: "single-responsive-image" },
-  { assetKey: "single-lottie" },
-  { assetKey: "single-content-box" },
-  { assetKey: "single-column-container" },
-  { assetKey: "section-separator" },
-  { assetKey: "responsive-table" },
-  { assetKey: "responsive-image" },
-  { assetKey: "post-type-scroller" },
-  { assetKey: "post-type-filter-grid-v2" },
-  { assetKey: "post-info" },
-  { assetKey: "personalised-links" },
-  { assetKey: "nav-menu-container" },
-  { assetKey: "mikmak-wtb" },
-  { assetKey: "menu-presentation" },
-  { assetKey: "market-selector" },
-  { assetKey: "map-container" },
-  { assetKey: "list-builder" },
-  { assetKey: "iframe-container" },
-  { assetKey: "group-container" },
-  { assetKey: "gradient-layer" },
-  { assetKey: "floating-links" },
-  { assetKey: "event-details-banner" },
-  { assetKey: "divider" },
-  { assetKey: "debrain-wtb" },
-  { assetKey: "debrain-label-shop" },
-  { assetKey: "css-test" },
-  { assetKey: "collection-carousel" },
-  { assetKey: "carousel-thumbnail-gallery" },
-  { assetKey: "carousel-multi-layout-v2" },
-  { assetKey: "card-carousel-v2" },
-  { assetKey: "breadcrumb-display" },
-  { assetKey: "betterreviews-display" },
-  { assetKey: "bazaarvoice-display" },
-  { assetKey: "bambuser-display" },
-  { assetKey: "back-to-top-button" },
-  { assetKey: "animated-sections" },
-  { assetKey: "airtable-dashboard" },
-];
+const fallbackAssetArray = [{ assetKey: "back-to-top-button" }];
 
 const options = {
   rootMargin: "0% 0% 0%",
   threshold: 0,
-  debugLogMessages: false,
+  debugLogMessages: true,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
   assetArray: fallbackAssetArray,
   assetMap: {},
-  ignoreCss: true,
+  css: true,
   lazy: true,
-  filePrefix: "Assets",
+  filePrefix: "DevLibrary",
   fileSuffixJs: ".js",
-  fileSuffixCss: ".css",
+  fileSuffixCss: ".scss",
   filePath: "js/blocks",
   filePathCss: "scss/blocks",
 };
@@ -98,10 +48,21 @@ function lazyloaderInit() {
   options.debugLogMessages && console.log("Lazy Loader initialized!");
   options.lazyBlocksToSearchFor = [];
   options.assetArray.forEach((asset) => {
-    options.assetMap[asset.assetKey] = {
-      js: () => import(`${options.filePrefix}/${options.filePath}/${asset.assetKey}${options.fileSuffixJs}`),
-      css: options.ignoreCss === true,
-    };
+    if (options.filePrefix === "DevLibrary") {
+      options.assetMap[asset.assetKey] = {
+        js: () =>
+          import(
+            `DevLibrary/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
+          ),
+        css: options.css === true,
+      };
+    }
+    // if (options.filePrefix === "NodeModules") {
+    //   options.assetMap[asset.assetKey] = {
+    //     js: () => import(`NodeModules/${this.options.filePath}/${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`),
+    //     css: options.ignoreCss === true,
+    //   };
+    // }
 
     // if not, add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
@@ -233,17 +194,17 @@ export function inCriticalCssConfig(assetKey) {
  * @param {object} options The options object which will at the very least contain the css property set to true.
  * @returns {promise}
  */
-export function loadCss(assetKey, options = { css: false }) {
-  const promise = new Promise((resolve) => {
-    if (options.css === true && !inCriticalCssConfig(assetKey)) {
-      import(
-        /* webpackChunkName: "[request]" */ `${options.filePrefix}/${options.filePathCss}/${assetKey}${options.fileSuffixCss}`
-      ).then(() => resolve(true));
-    } else {
-      return resolve(true);
-    }
-  });
-  return promise;
+export function loadCss(assetKey) {
+  // const promise = new Promise((resolve) => {
+  //   if (options.css === true && !inCriticalCssConfig(assetKey)) {
+  //     import(
+  //       /* webpackChunkName: "[request]" */ `DevLibrary/${options.filePathCss}/${assetKey}${options.fileSuffixCss}`
+  //     ).then(() => resolve(true));
+  //   } else {
+  //     return resolve(true);
+  //   }
+  // });
+  // return promise;
 }
 
 const api = {
