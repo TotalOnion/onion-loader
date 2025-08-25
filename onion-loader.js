@@ -40,8 +40,8 @@ const options = {
   assetMap: {},
   css: true,
   lazy: true,
-  useCssBundle: true,
-  filePrefix: "NodeModules",
+  cssLoadingStyle: "bundle", // 'component' or 'bundle'
+  filePrefix: "nodemodules", //'nodemodules', 'assets' or 'dev'
   fileSuffixJs: ".js",
   fileSuffixCss: ".scss",
   filePath: "js/blocks",
@@ -55,10 +55,7 @@ function lazyloaderInit() {
   options.debugLogMessages && console.log("Lazy Loader initialized!");
   options.lazyBlocksToSearchFor = [];
   options.assetArray.forEach((asset) => {
-    console.log(
-      `NodeModules/@total_onion/onion-library/components/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
-    );
-    if (options.filePrefix === "NodeModules") {
+    if (options.filePrefix === "nodemodules") {
       options.assetMap[asset.assetKey] = {
         js: () =>
           import(
@@ -67,12 +64,22 @@ function lazyloaderInit() {
         css: options.ignoreCss === true,
       };
     }
-    if (options.filePrefix === "Assets") {
+    if (options.filePrefix === "assets") {
       options.assetMap[asset.assetKey] = {
         js: () => import(`Assets/${this.options.filePath}/${asset.assetKey}`),
         css: options.ignoreCss === false,
       };
     }
+
+    // if (options.filePrefix === "dev") {
+    //   options.assetMap[asset.assetKey] = {
+    //     js: () =>
+    //       import(
+    //         `../../../../../../../../onion-library/components/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
+    //       ),
+    //     css: options.ignoreCss === true,
+    //   };
+    // }
 
     // Add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
@@ -205,14 +212,20 @@ export function inCriticalCssConfig(assetKey) {
  * @returns {promise}
  */
 export function loadCss(assetKey) {
-  if (options.useCssBundle == true) {
+  if (options.css == true && options.cssLoadingStyle === "bundle") {
+    options.debugLogMessages && console.log("using css bundle");
     const promise = new Promise((resolve) => {
       import(
         `NodeModules/@total_onion/onion-library/public/publicbundlecss.css`
-      ).then(() => resolve(true));
+      ).then(() => {
+        console.log("resolved");
+        resolve(true);
+      });
     });
     return promise;
-  } else {
+  }
+  if (options.css == true && options.cssLoadingStyle === "component") {
+    options.debugLogMessages && console.log("using individual css");
     const promise = new Promise((resolve) => {
       if (options.css === true && !inCriticalCssConfig(assetKey)) {
         import(
