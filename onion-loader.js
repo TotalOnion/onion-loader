@@ -22,7 +22,13 @@
  * @default 'scss/blocks/'
  */
 
-const fallbackAssetArray = [{ assetKey: "back-to-top-button" }];
+const fallbackAssetArray = [
+  { assetKey: "back-to-top-button" },
+  { assetKey: "group-container-v3" },
+  { assetKey: "standard-content-v3" },
+  { assetKey: "single-responsive-image-v3" },
+  { assetKey: "site-logo-container-v3" },
+];
 
 const options = {
   rootMargin: "0% 0% 0%",
@@ -34,7 +40,8 @@ const options = {
   assetMap: {},
   css: true,
   lazy: true,
-  filePrefix: "DevLibrary",
+  useCssBundle: true,
+  filePrefix: "NodeModules",
   fileSuffixJs: ".js",
   fileSuffixCss: ".scss",
   filePath: "js/blocks",
@@ -48,23 +55,26 @@ function lazyloaderInit() {
   options.debugLogMessages && console.log("Lazy Loader initialized!");
   options.lazyBlocksToSearchFor = [];
   options.assetArray.forEach((asset) => {
-    if (options.filePrefix === "DevLibrary") {
+    console.log(
+      `NodeModules/@total_onion/onion-library/components/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
+    );
+    if (options.filePrefix === "NodeModules") {
       options.assetMap[asset.assetKey] = {
         js: () =>
           import(
-            `DevLibrary/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
+            `NodeModules/@total_onion/onion-library/components/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
           ),
-        css: options.css === true,
+        css: options.ignoreCss === true,
       };
     }
-    // if (options.filePrefix === "NodeModules") {
-    //   options.assetMap[asset.assetKey] = {
-    //     js: () => import(`NodeModules/${this.options.filePath}/${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`),
-    //     css: options.ignoreCss === true,
-    //   };
-    // }
+    if (options.filePrefix === "Assets") {
+      options.assetMap[asset.assetKey] = {
+        js: () => import(`Assets/${this.options.filePath}/${asset.assetKey}`),
+        css: options.ignoreCss === false,
+      };
+    }
 
-    // if not, add to lazy blocks to search for
+    // Add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
     options.lazyBlocksFound = Array.from(
       document.querySelectorAll(options.lazyBlocksToSearchFor)
@@ -145,7 +155,6 @@ const intersectionCallback = (entries, observer) => {
  */
 function callBlockJs(block) {
   if (!block.classList.contains("loaded")) {
-    block.classList.add("loaded");
     Promise.all([
       options.assetMap[block.dataset.assetkey].js(),
       loadCss(block.dataset.assetkey),
@@ -162,6 +171,7 @@ function callBlockJs(block) {
               `Skipping JS load for block: ${block.dataset.assetkey}`
             );
         }
+        block.classList.add("loaded");
       } catch (error) {
         console.log("could not load block js", error);
       }
@@ -195,16 +205,24 @@ export function inCriticalCssConfig(assetKey) {
  * @returns {promise}
  */
 export function loadCss(assetKey) {
-  // const promise = new Promise((resolve) => {
-  //   if (options.css === true && !inCriticalCssConfig(assetKey)) {
-  //     import(
-  //       /* webpackChunkName: "[request]" */ `DevLibrary/${options.filePathCss}/${assetKey}${options.fileSuffixCss}`
-  //     ).then(() => resolve(true));
-  //   } else {
-  //     return resolve(true);
-  //   }
-  // });
-  // return promise;
+  if (options.useCssBundle == true) {
+    const promise = new Promise((resolve) => {
+      import(
+        `NodeModules/@total_onion/onion-library/public/publicbundlecss.css`
+      ).then(() => resolve(true));
+    });
+    return promise;
+  } else {
+    const promise = new Promise((resolve) => {
+      if (options.css === true && !inCriticalCssConfig(assetKey)) {
+        import(
+          /* webpackChunkName: "[request]" */ `NodeModules/@total_onion/onion-library/components/block-${assetKey}${options.fileSuffixCss}`
+        ).then(() => resolve(true));
+      } else {
+        return resolve(true);
+      }
+    });
+  }
 }
 
 const api = {
