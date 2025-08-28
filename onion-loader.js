@@ -23,7 +23,6 @@
  */
 
 const fallbackAssetArray = [
-  { assetKey: "back-to-top-button" },
   { assetKey: "group-container-v3" },
   { assetKey: "standard-content-v3" },
   { assetKey: "single-responsive-image-v3" },
