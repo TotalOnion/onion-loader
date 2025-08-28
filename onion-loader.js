@@ -31,7 +31,7 @@ const fallbackAssetArray = [
 ];
 
 const options = {
-  rootMargin: "0% 0% 0%",
+  rootMargin: "100% 0px 300px 0px",
   threshold: 0,
   debugLogMessages: true,
   lazyBlocksToSearchFor: [],
