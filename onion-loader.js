@@ -39,7 +39,7 @@ const options = {
   assetMap: {},
   css: true,
   lazy: true,
-  cssLoadingStyle: "bundle", // 'component' or 'bundle'
+  cssLoadingStyle: "component", // 'component' or 'bundle'
   filePrefix: "nodemodules", //'nodemodules', 'assets' or 'dev'
   fileSuffixJs: ".js",
   fileSuffixCss: ".scss",
@@ -223,18 +223,17 @@ export function loadCss(assetKey) {
     });
     return promise;
   }
-  if (options.css == true && options.cssLoadingStyle === "component") {
-    options.debugLogMessages && console.log("using individual css");
-    const promise = new Promise((resolve) => {
-      if (options.css === true && !inCriticalCssConfig(assetKey)) {
-        import(
-          /* webpackChunkName: "[request]" */ `NodeModules/@total_onion/onion-library/components/block-${assetKey}${options.fileSuffixCss}`
-        ).then(() => resolve(true));
-      } else {
-        return resolve(true);
-      }
-    });
-  }
+
+  // options.debugLogMessages && console.log("using dev css");
+  // const promise = new Promise((resolve) => {
+  //   if (options.css === true && !inCriticalCssConfig(assetKey)) {
+  //     import(
+  //       `../../../../../../../../onion-library/components/block-${assetKey}/${assetKey}${options.fileSuffixCss}`
+  //     ).then(() => resolve(true));
+  //   } else {
+  //     return resolve(true);
+  //   }
+  // });
 }
 
 const api = {
