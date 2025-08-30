@@ -223,7 +223,23 @@ export function loadCss(assetKey) {
     });
     return promise;
   }
-
+  if (options.css == true && options.cssLoadingStyle === "component") {
+    options.debugLogMessages && console.log("using individual css");
+    const promise = new Promise((resolve) => {
+      if (options.css === true && !inCriticalCssConfig(assetKey)) {
+        import(
+          /* webpackChunkName: "[request]" */ `NodeModules/@total_onion/onion-library/components/block-${assetKey}/${assetKey}${options.fileSuffixCss}`
+        ).then(() => resolve(true));
+      } else {
+        return resolve(true);
+      }
+    });
+  }
+  // if (
+  //   options.css == true &&
+  //   options.cssLoadingStyle === "component" &&
+  //   options.cssLoadingStyle === "dev"
+  // ) {
   // options.debugLogMessages && console.log("using dev css");
   // const promise = new Promise((resolve) => {
   //   if (options.css === true && !inCriticalCssConfig(assetKey)) {
@@ -234,6 +250,7 @@ export function loadCss(assetKey) {
   //     return resolve(true);
   //   }
   // });
+  // }
 }
 
 const api = {
