@@ -60,7 +60,7 @@ const fallbackAssetArray = [
 const options = {
   rootMargin: "100% 0px 300px 0px",
   threshold: 0,
-  debugLogMessages: true,
+  debugLogMessages: false,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
   assetArray: fallbackAssetArray,
