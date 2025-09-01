@@ -1,6 +1,6 @@
 {
   "name": "@total_onion/onion-loader",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lazyloader utility",
   "main": "onionloader.js",
   "scripts": {

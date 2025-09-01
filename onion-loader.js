@@ -23,10 +23,38 @@
  */
 
 const fallbackAssetArray = [
-  { assetKey: "group-container-v3" },
+  { assetKey: "video-content-v3" },
+  { assetKey: "sub-group-container-v3" },
   { assetKey: "standard-content-v3" },
-  { assetKey: "single-responsive-image-v3" },
+  { assetKey: "standard-content-v3-extra" },
+  { assetKey: "spacer-v3" },
+  { assetKey: "social-networks-v3" },
+  { assetKey: "smash-balloon-social-media-v3" },
+  { assetKey: "site-title-and-tagline-v3" },
   { assetKey: "site-logo-container-v3" },
+  { assetKey: "single-responsive-image-v3" },
+  { assetKey: "single-column-container-v3" },
+  { assetKey: "section-separator-v3" },
+  { assetKey: "product-info-v3" },
+  { assetKey: "product-info-v3-extra" },
+  { assetKey: "post-info-v3" },
+  { assetKey: "post-info-v3-extra" },
+  { assetKey: "nav-menu-container-v3" },
+  { assetKey: "modal-form-v3" },
+  { assetKey: "market-selector-v3" },
+  { assetKey: "lottie-content-v3" },
+  { assetKey: "group-container-v3" },
+  { assetKey: "gradient-layer-v3" },
+  { assetKey: "form-selection-v3" },
+  { assetKey: "divider-v3" },
+  { assetKey: "cover-link-v3" },
+  { assetKey: "carousel-multi-layout-v3" },
+  { assetKey: "carousel-multi-layout-v3-extra" },
+  { assetKey: "block-interactions-v3" },
+  { assetKey: "betterreviews-display-v3" },
+  { assetKey: "betterreviews-display-v3-extra" },
+  { assetKey: "accordion-v3" },
+  { assetKey: "accent-image-v3" },
 ];
 
 const options = {
@@ -63,12 +91,12 @@ function lazyloaderInit() {
         css: options.ignoreCss === true,
       };
     }
-    if (options.filePrefix === "assets") {
-      options.assetMap[asset.assetKey] = {
-        js: () => import(`Assets/${this.options.filePath}/${asset.assetKey}`),
-        css: options.ignoreCss === false,
-      };
-    }
+    // if (options.filePrefix === "assets") {
+    //   options.assetMap[asset.assetKey] = {
+    //     js: () => import(`Assets/${this.options.filePath}/${asset.assetKey}`),
+    //     css: options.ignoreCss === false,
+    //   };
+    // }
 
     // if (options.filePrefix === "dev") {
     //   options.assetMap[asset.assetKey] = {
@@ -223,7 +251,11 @@ export function loadCss(assetKey) {
     });
     return promise;
   }
-  if (options.css == true && options.cssLoadingStyle === "component") {
+  if (
+    options.css == true &&
+    options.cssLoadingStyle === "component" &&
+    options.filePrefix === "nodemodules"
+  ) {
     options.debugLogMessages && console.log("using individual css");
     const promise = new Promise((resolve) => {
       if (options.css === true && !inCriticalCssConfig(assetKey)) {
