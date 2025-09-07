@@ -25,8 +25,8 @@
 const fallbackAssetArray = [
   { assetKey: "video-content-v3" },
   { assetKey: "sub-group-container-v3" },
+  { assetKey: "sticky-buy-cta-v3" },
   { assetKey: "standard-content-v3" },
-  { assetKey: "standard-content-v3-extra" },
   { assetKey: "spacer-v3" },
   { assetKey: "social-networks-v3" },
   { assetKey: "smash-balloon-social-media-v3" },
@@ -36,9 +36,7 @@ const fallbackAssetArray = [
   { assetKey: "single-column-container-v3" },
   { assetKey: "section-separator-v3" },
   { assetKey: "product-info-v3" },
-  { assetKey: "product-info-v3-extra" },
   { assetKey: "post-info-v3" },
-  { assetKey: "post-info-v3-extra" },
   { assetKey: "nav-menu-container-v3" },
   { assetKey: "modal-form-v3" },
   { assetKey: "market-selector-v3" },
@@ -49,10 +47,8 @@ const fallbackAssetArray = [
   { assetKey: "divider-v3" },
   { assetKey: "cover-link-v3" },
   { assetKey: "carousel-multi-layout-v3" },
-  { assetKey: "carousel-multi-layout-v3-extra" },
   { assetKey: "block-interactions-v3" },
   { assetKey: "betterreviews-display-v3" },
-  { assetKey: "betterreviews-display-v3-extra" },
   { assetKey: "accordion-v3" },
   { assetKey: "accent-image-v3" },
 ];
@@ -63,7 +59,7 @@ const options = {
   debugLogMessages: false,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
-  assetArray: fallbackAssetArray,
+  assetArray: fallbackAssetArray, //latest assetArray can be found in /@total_onion/onion-library/public/jsAssets.mjs
   assetMap: {},
   css: true,
   lazy: true,
@@ -239,18 +235,18 @@ export function inCriticalCssConfig(assetKey) {
  * @returns {promise}
  */
 export function loadCss(assetKey) {
-  if (options.css == true && options.cssLoadingStyle === "bundle") {
-    options.debugLogMessages && console.log("using css bundle");
-    const promise = new Promise((resolve) => {
-      import(
-        `NodeModules/@total_onion/onion-library/public/publicbundlecss.css`
-      ).then(() => {
-        console.log("resolved");
-        resolve(true);
-      });
-    });
-    return promise;
-  }
+  // if (options.css == true && options.cssLoadingStyle === "bundle") {
+  //   options.debugLogMessages && console.log("using css bundle");
+  //   const promise = new Promise((resolve) => {
+  //     import(
+  //       `NodeModules/@total_onion/onion-library/public/publicbundlecss.css`
+  //     ).then(() => {
+  //       console.log("resolved");
+  //       resolve(true);
+  //     });
+  //   });
+  //   return promise;
+  // }
   if (
     options.css == true &&
     options.cssLoadingStyle === "component" &&
@@ -270,18 +266,18 @@ export function loadCss(assetKey) {
   // if (
   //   options.css == true &&
   //   options.cssLoadingStyle === "component" &&
-  //   options.cssLoadingStyle === "dev"
+  //   options.filePrefix === "dev"
   // ) {
-  // options.debugLogMessages && console.log("using dev css");
-  // const promise = new Promise((resolve) => {
-  //   if (options.css === true && !inCriticalCssConfig(assetKey)) {
-  //     import(
-  //       `../../../../../../../../onion-library/components/block-${assetKey}/${assetKey}${options.fileSuffixCss}`
-  //     ).then(() => resolve(true));
-  //   } else {
-  //     return resolve(true);
-  //   }
-  // });
+  //   options.debugLogMessages && console.log("using dev css");
+  //   const promise = new Promise((resolve) => {
+  //     if (options.css === true && !inCriticalCssConfig(assetKey)) {
+  //       import(
+  //         `../../../../../../../../onion-library/components/block-${assetKey}/${assetKey}${options.fileSuffixCss}`
+  //       ).then(() => resolve(true));
+  //     } else {
+  //       return resolve(true);
+  //     }
+  //   });
   // }
 }
 
