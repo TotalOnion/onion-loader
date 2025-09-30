@@ -51,6 +51,7 @@ const fallbackAssetArray = [
   { assetKey: "betterreviews-display-v3" },
   { assetKey: "accordion-v3" },
   { assetKey: "accent-image-v3" },
+  { assetKey: "site-copyright-notice-v3" },
 ];
 
 const options = {
