@@ -52,6 +52,7 @@ const fallbackAssetArray = [
   { assetKey: "accordion-v3" },
   { assetKey: "accent-image-v3" },
   { assetKey: "site-copyright-notice-v3" },
+  { assetKey: "scrolling-banner-v3" },
 ];
 
 const options = {
