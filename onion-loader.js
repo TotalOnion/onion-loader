@@ -54,6 +54,7 @@ const fallbackAssetArray = [
   { assetKey: "site-copyright-notice-v3" },
   { assetKey: "scrolling-banner-v3" },
   { assetKey: "responsive-table-v3" },
+  { assetKey: "featured-image-gallery-v3" },
 ];
 
 const options = {
