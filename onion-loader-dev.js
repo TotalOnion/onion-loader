@@ -1,6 +1,5 @@
 import jsAssetList from "./jsAssets.mjs";
 const fallbackAssetArray = jsAssetList.dynamicAssets;
-console.log("🚀 ~ fallbackAssetArray:", fallbackAssetArray);
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 
