@@ -1,3 +1,6 @@
+import jsAssetList from "./jsAssets.mjs";
+const fallbackAssetArray = jsAssetList.dynamicAssets;
+
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 
@@ -21,41 +24,6 @@
  * @property {string} filePathCss The file path for the css assets (after Assets alias).
  * @default 'scss/blocks/'
  */
-
-const fallbackAssetArray = [
-  { assetKey: "video-content-v3" },
-  { assetKey: "sub-group-container-v3" },
-  { assetKey: "sticky-buy-cta-v3" },
-  { assetKey: "standard-content-v3" },
-  { assetKey: "spacer-v3" },
-  { assetKey: "social-networks-v3" },
-  { assetKey: "smash-balloon-social-media-v3" },
-  { assetKey: "site-title-and-tagline-v3" },
-  { assetKey: "site-logo-container-v3" },
-  { assetKey: "single-responsive-image-v3" },
-  { assetKey: "single-column-container-v3" },
-  { assetKey: "section-separator-v3" },
-  { assetKey: "product-info-v3" },
-  { assetKey: "post-info-v3" },
-  { assetKey: "nav-menu-container-v3" },
-  { assetKey: "modal-form-v3" },
-  { assetKey: "market-selector-v3" },
-  { assetKey: "lottie-content-v3" },
-  { assetKey: "group-container-v3" },
-  { assetKey: "gradient-layer-v3" },
-  { assetKey: "form-selection-v3" },
-  { assetKey: "divider-v3" },
-  { assetKey: "cover-link-v3" },
-  { assetKey: "carousel-multi-layout-v3" },
-  { assetKey: "block-interactions-v3" },
-  { assetKey: "betterreviews-display-v3" },
-  { assetKey: "accordion-v3" },
-  { assetKey: "accent-image-v3" },
-  { assetKey: "site-copyright-notice-v3" },
-  { assetKey: "scrolling-banner-v3" },
-  { assetKey: "responsive-table-v3" },
-  { assetKey: "featured-image-gallery-v3" },
-];
 
 const options = {
   rootMargin: "100% 0px 300px 0px",
