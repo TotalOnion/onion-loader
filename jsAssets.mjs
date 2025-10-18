@@ -31,6 +31,7 @@ const dynamicAssets = [
   { assetKey: "scrolling-banner-v3" },
   { assetKey: "responsive-table-v3" },
   { assetKey: "featured-image-gallery-v3" },
+  { assetKey: "post-type-filter-grid-v3" },
 ];
 const api = { dynamicAssets };
 export default api;
