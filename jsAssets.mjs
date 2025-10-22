@@ -32,6 +32,7 @@ const dynamicAssets = [
   { assetKey: "responsive-table-v3" },
   { assetKey: "featured-image-gallery-v3" },
   { assetKey: "post-type-filter-grid-v3" },
+  { assetKey: "spotify-embed-v3" },
 ];
 const api = { dynamicAssets };
 export default api;
