@@ -66,16 +66,6 @@ function lazyloaderInit() {
     //   };
     // }
 
-    // if (options.filePrefix === "dev") {
-    //   options.assetMap[asset.assetKey] = {
-    //     js: () =>
-    //       import(
-    //         `../../../../../../../../onion-library/components/block-${asset.assetKey}/${asset.assetKey}${options.fileSuffixJs}`
-    //       ),
-    //     css: options.ignoreCss === true,
-    //   };
-    // }
-
     // Add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
     options.lazyBlocksFound = Array.from(
