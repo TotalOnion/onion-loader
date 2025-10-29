@@ -149,7 +149,7 @@ function callBlockJs(block) {
   if (!block.classList.contains("loaded")) {
     Promise.all([
       options.assetMap[block.dataset.assetkey].js(),
-      loadCss(block.dataset.assetkey),
+      block.dataset.cssload !== "false" && loadCss(block.dataset.assetkey),
     ]).then((module) => {
       try {
         if (block.dataset.jsload !== "false") {
