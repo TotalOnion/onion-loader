@@ -1,5 +1,5 @@
 import jsAssetList from "./jsAssets.mjs";
-const fallbackAssetArray = jsAssetList.dynamicAssets;
+const coreAssets = jsAssetList.dynamicAssets;
 
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
@@ -28,10 +28,11 @@ const fallbackAssetArray = jsAssetList.dynamicAssets;
 const options = {
   rootMargin: "100% 0px 300px 0px",
   threshold: 0,
-  debugLogMessages: false,
+  debugLogMessages: true,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
-  assetArray: fallbackAssetArray, //latest assetArray can be found in /@total_onion/onion-library/public/jsAssets.mjs
+  coreAssets: [...coreAssets], //latest assetArray can be found in /@total_onion/onion-library/public/jsAssets.mjs
+  projectAssets: [],
   assetMap: {},
   css: true,
   lazy: true,
@@ -47,10 +48,14 @@ const options = {
  * Initializes the lazyloader.
  */
 function lazyloaderInit() {
+  const assetArray = options.coreAssets.concat(options.projectAssets);
   options.debugLogMessages && console.log("Lazy Loader initialized!");
   options.lazyBlocksToSearchFor = [];
-  options.assetArray.forEach((asset) => {
-    if (options.filePrefix === "nodemodules") {
+  assetArray.forEach((asset) => {
+    if (
+      options.filePrefix === "nodemodules" &&
+      asset.assetKey.includes("-v3")
+    ) {
       options.assetMap[asset.assetKey] = {
         js: () =>
           import(
@@ -58,13 +63,18 @@ function lazyloaderInit() {
           ),
         css: options.ignoreCss === true,
       };
+    } else {
     }
-    // if (options.filePrefix === "assets") {
-    //   options.assetMap[asset.assetKey] = {
-    //     js: () => import(`Assets/${this.options.filePath}/${asset.assetKey}`),
-    //     css: options.ignoreCss === false,
-    //   };
-    // }
+    if (
+      options.filePrefix === "nodemodules" &&
+      !asset.assetKey.includes("-v3")
+    ) {
+      options.assetMap[asset.assetKey] = {
+        js: () =>
+          import(`Assets/js/blocks/${asset.assetKey}${options.fileSuffixJs}`),
+        css: options.ignoreCss === false,
+      };
+    }
 
     // Add to lazy blocks to search for
     options.lazyBlocksToSearchFor.push(`[data-assetkey="${asset.assetKey}"]`);
@@ -216,9 +226,21 @@ export function loadCss(assetKey) {
   ) {
     options.debugLogMessages && console.log("using individual css");
     const promise = new Promise((resolve) => {
-      if (options.css === true && !inCriticalCssConfig(assetKey)) {
+      if (
+        options.css === true &&
+        !inCriticalCssConfig(assetKey) &&
+        assetKey.includes("-v3")
+      ) {
         import(
           /* webpackChunkName: "[request]" */ `NodeModules/@total_onion/onion-library/components/block-${assetKey}/${assetKey}${options.fileSuffixCss}`
+        ).then(() => resolve(true));
+      } else if (
+        options.css === true &&
+        !inCriticalCssConfig(assetKey) &&
+        !assetKey.includes("-v3")
+      ) {
+        import(
+          /* webpackChunkName: "[request]" */ `Assets/scss/blocks/${assetKey}${options.fileSuffixCss}`
         ).then(() => resolve(true));
       } else {
         return resolve(true);
