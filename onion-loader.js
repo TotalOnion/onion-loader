@@ -28,7 +28,7 @@ const coreAssets = jsAssetList.dynamicAssets;
 const options = {
   rootMargin: "100% 0px 300px 0px",
   threshold: 0,
-  debugLogMessages: true,
+  debugLogMessages: false,
   lazyBlocksToSearchFor: [],
   lazyBlocksFound: [],
   coreAssets: [...coreAssets], //latest assetArray can be found in /@total_onion/onion-library/public/jsAssets.mjs
