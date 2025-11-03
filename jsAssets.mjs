@@ -33,6 +33,7 @@ const dynamicAssets = [
   { assetKey: "featured-image-gallery-v3" },
   { assetKey: "post-type-filter-grid-v3" },
   { assetKey: "spotify-embed-v3" },
+  { assetKey: "cocktail-recipe-v3" },
 ];
 const api = { dynamicAssets };
 export default api;
