@@ -1,3 +1,5 @@
+**REPO IS NOW DEPRECATED - LOADER HAS MOVED TO ONION LIBRARY**
+
 # Onion Loader
 
 The Onion Loader is a tool that uses intersection observer to dynamically load css and javascript.
